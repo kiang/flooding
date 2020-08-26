@@ -56,7 +56,7 @@ var vectorPoints = new ol.layer.Vector({
     format: new ol.format.GeoJSON()
   })
   ,style:function(f) {
-    if(f.get('result') > 0) {
+    if(f.get('result') > 0 && f.get('unitOfMeasurement') == 'cm') {
       return pointRedStyle.clone();
     } else {
       return pointGreenStyle.clone();
@@ -149,9 +149,8 @@ map.on('singleclick', function(evt) {
     var message = '';
     if(p.address) {
       let timeUpdate = moment(p.phenomenonTime).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
-      message += '<h2>偵測點</h2>';
+      message += '<h2>' + p.stationName + '</h2>';
       message += '<table class="table table-dark table-bordered">';
-      message += '<tr><td>名稱</td><td>' + p.stationName + '</td></tr>';
       message += '<tr><td>更新時間</td><td>' + timeUpdate + '</td></tr>';
       message += '<tr><td>住址</td><td>' + p.address + '</td></tr>';
       message += '<tr><td>管理單位</td><td>' + p.authority + '</td></tr>';
