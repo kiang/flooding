@@ -41,6 +41,14 @@ var pointRedStyle = new ol.style.Style({
     })
   })
 });
+var pointYellowStyle = new ol.style.Style({
+  image: new ol.style.Circle({
+    radius: 10,
+    fill: new ol.style.Fill({
+      color: [243, 243, 80, 0.7]
+    })
+  })
+});
 var pointGreenStyle = new ol.style.Style({
   image: new ol.style.Circle({
     radius: 10,
@@ -57,10 +65,13 @@ var vectorPoints = new ol.layer.Vector({
     format: new ol.format.GeoJSON()
   })
   ,style:function(f) {
+    var num = parseInt(f.get('result'));
     if(f.get('unitOfMeasurement') != 'cm') {
       return emptyStyle.clone();
-    } else if(f.get('result') > 0) {
+    } else if(num > 10) {
       return pointRedStyle.clone();
+    } else if(num > 0) {
+      return pointYellowStyle.clone();
     } else {
       return pointGreenStyle.clone();
     }
