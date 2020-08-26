@@ -148,10 +148,11 @@ map.on('singleclick', function(evt) {
     var p = feature.getProperties();
     var message = '';
     if(p.address) {
+      let timeUpdate = moment(p.phenomenonTime).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
       message += '<h2>偵測點</h2>';
       message += '<table class="table table-dark table-bordered">';
       message += '<tr><td>名稱</td><td>' + p.stationName + '</td></tr>';
-      message += '<tr><td>更新時間</td><td>' + p.phenomenonTime + '</td></tr>';
+      message += '<tr><td>更新時間</td><td>' + timeUpdate + '</td></tr>';
       message += '<tr><td>住址</td><td>' + p.address + '</td></tr>';
       message += '<tr><td>管理單位</td><td>' + p.authority + '</td></tr>';
       message += '<tr><td>淹水情形</td><td>' + p.result + ' ' + p.unitOfMeasurement + '</td></tr>';
