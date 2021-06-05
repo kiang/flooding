@@ -161,12 +161,11 @@ map.on('singleclick', function(evt) {
   map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
     var p = feature.getProperties();
     var message = '';
-    if(p.address) {
+    if(p.stationName) {
       let timeUpdate = moment(p.phenomenonTime).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
       message += '<h2>' + p.stationName + '</h2>';
       message += '<table class="table table-dark table-bordered">';
       message += '<tr><td>更新時間</td><td>' + timeUpdate + '</td></tr>';
-      message += '<tr><td>住址</td><td>' + p.address + '</td></tr>';
       message += '<tr><td>管理單位</td><td>' + p.authority + '</td></tr>';
       message += '<tr><td>量測數值</td><td>' + p.result + ' ' + p.unitOfMeasurement + '</td></tr>';
       message += '</table>';
