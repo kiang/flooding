@@ -170,7 +170,6 @@ map.on('singleclick', function(evt) {
       message += '<tr><td>量測數值</td><td>' + p.result + ' ' + p.unitOfMeasurement + '</td></tr>';
       message += '</table>';
     }
-    message += '<a href="https://www.facebook.com/k.olc.tw/posts/1608071312699659" target="_blank" class="btn btn-primary btn-block">FB討論</a>';
     $('#sidebar-main-block').append(message);
     sidebar.open('home');
   });
