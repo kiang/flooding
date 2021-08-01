@@ -69,7 +69,7 @@ var pointStyle = function (f) {
   } else if (num > 0) {
     return pointYellowStyle.clone();
   } else {
-    if(showOption === 'all') {
+    if (showOption === 'all') {
       return pointGreenStyle.clone();
     } else {
       return null;
@@ -167,6 +167,7 @@ map.on('singleclick', function (evt) {
   $('#sidebar-main-block').html('');
   map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
     var p = feature.getProperties();
+    var lonLat = ol.proj.toLonLat(p.geometry.getCoordinates());
     var message = '';
     if (p.stationName) {
       let timeUpdate = moment(p.phenomenonTime).tz('Asia/Taipei').format('YYYY-MM-DD HH:mm:ss');
@@ -175,6 +176,12 @@ map.on('singleclick', function (evt) {
       message += '<tr><td>更新時間</td><td>' + timeUpdate + '</td></tr>';
       message += '<tr><td>管理單位</td><td>' + p.authority + '</td></tr>';
       message += '<tr><td>量測數值</td><td>' + p.result + ' ' + p.unitOfMeasurement + '</td></tr>';
+      message += '<tr><td colspan="2">';
+      message += '<div class="btn-group-vertical" role="group" style="width: 100%;">';
+      message += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + lonLat[1] + ',' + lonLat[0] + '&travelmode=driving" target="_blank" class="btn btn-info btn-lg btn-block">Google 導航</a>';
+      message += '<a href="https://wego.here.com/directions/drive/mylocation/' + lonLat[1] + ',' + lonLat[0] + '" target="_blank" class="btn btn-info btn-lg btn-block">Here WeGo 導航</a>';
+      message += '<a href="https://bing.com/maps/default.aspx?rtp=~pos.' + lonLat[1] + '_' + lonLat[0] + '" target="_blank" class="btn btn-info btn-lg btn-block">Bing 導航</a>';
+      message += '</div></td></tr>';
       message += '</table>';
     }
     $('#sidebar-main-block').append(message);
