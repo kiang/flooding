@@ -74,7 +74,7 @@ var pointStyle = function (f) {
     return emptyStyle.clone();
   } else if (num > 49) {
     return pointDarkStyle.clone();
-  } else if (num > 10) {
+  } else if (num > 9) {
     return pointRedStyle.clone();
   } else if (num > 0) {
     return pointYellowStyle.clone();
@@ -215,4 +215,35 @@ $('#showAll').click(function (e) {
 
   $('a.btn-show').removeClass('btn-primary').addClass('btn-secondary');
   $(this).removeClass('btn-secondary').addClass('btn-primary');
+});
+
+$('#countPoints').click(function (e) {
+  e.preventDefault();
+  var counter = {
+    dark: 0,
+    red: 0,
+    yellow: 0,
+    all: 0
+  };
+  vectorPoints.getSource().forEachFeature(function (f) {
+    var num = parseInt(f.get('result'));
+    if (num > 49) {
+      counter.dark++;
+      counter.all++;
+    } else if (num > 10) {
+      counter.red++;
+      counter.all++;
+    } else if (num > 0) {
+      counter.yellow++;
+      counter.all++;
+    }
+  });
+  var message = '<table class="table table-dark">';
+  message += '<tbody>';
+  message += '<tr><th scope="row">深藍(>49cm)</th><td>' + counter.dark + '</td></tr>';
+  message += '<tr><th scope="row">紅(>9cm)</th><td>' + counter.red + '</td></tr>';
+  message += '<tr><th scope="row">黃(>0cm)</th><td>' + counter.yellow + '</td></tr>';
+  message += '<tr><th scope="row">合計</th><td>' + counter.all + '</td></tr>';
+  message += '</tbody></table>';
+  $('#countBlock').html(message);
 });
