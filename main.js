@@ -230,7 +230,7 @@ $('#countPoints').click(function (e) {
     if (num > 49) {
       counter.dark++;
       counter.all++;
-    } else if (num > 10) {
+    } else if (num > 9) {
       counter.red++;
       counter.all++;
     } else if (num > 0) {
