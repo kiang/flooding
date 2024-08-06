@@ -94,6 +94,13 @@ var vectorPoints = new ol.layer.Vector({
   }),
   style: pointStyle
 });
+var vectorPointsFhy = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    url: 'https://kiang.github.io/fhy.wra.gov.tw/json/fhy.json',
+    format: new ol.format.GeoJSON()
+  }),
+  style: pointStyle
+});
 
 var baseLayer = new ol.layer.Tile({
   source: new ol.source.WMTS({
@@ -120,7 +127,7 @@ var appView = new ol.View({
 });
 
 var map = new ol.Map({
-  layers: [baseLayer, vectorPoints],
+  layers: [baseLayer, vectorPoints, vectorPointsFhy],
   overlays: [popup],
   target: 'map',
   view: appView
