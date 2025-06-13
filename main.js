@@ -87,13 +87,6 @@ var pointStyle = function (f) {
   }
 }
 
-var vectorPoints = new ol.layer.Vector({
-  source: new ol.source.Vector({
-    url: 'https://kiang.github.io/cit_water/docs/iot_water.json',
-    format: new ol.format.GeoJSON()
-  }),
-  style: pointStyle
-});
 var vectorPointsFhy = new ol.layer.Vector({
   source: new ol.source.Vector({
     url: 'https://kiang.github.io/fhy.wra.gov.tw/json/fhy.json',
@@ -127,7 +120,7 @@ var appView = new ol.View({
 });
 
 var map = new ol.Map({
-  layers: [baseLayer, vectorPoints, vectorPointsFhy],
+  layers: [baseLayer, vectorPointsFhy],
   overlays: [popup],
   target: 'map',
   view: appView
@@ -193,6 +186,9 @@ map.on('singleclick', function (evt) {
       message += '<tr><td>更新時間</td><td>' + timeUpdate + '</td></tr>';
       message += '<tr><td>管理單位</td><td>' + p.authority + '</td></tr>';
       message += '<tr><td>量測數值</td><td>' + p.result + ' ' + p.unitOfMeasurement + '</td></tr>';
+      if (p.location) message += '<tr><td>位置</td><td>' + p.location + '</td></tr>';
+      if (p.situation) message += '<tr><td>狀況</td><td>' + p.situation + '</td></tr>';
+      if (p.dataSource) message += '<tr><td>資料來源</td><td>' + p.dataSource + '</td></tr>';
       message += '<tr><td colspan="2">';
       message += '<div class="btn-group-vertical" role="group" style="width: 100%;">';
       message += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + lonLat[1] + ',' + lonLat[0] + '&travelmode=driving" target="_blank" class="btn btn-info btn-lg btn-block">Google 導航</a>';
@@ -209,7 +205,7 @@ map.on('singleclick', function (evt) {
 $('#showPoints').click(function (e) {
   e.preventDefault();
   showOption = 'points';
-  vectorPoints.getSource().refresh();
+  vectorPointsFhy.getSource().refresh();
 
   $('a.btn-show').removeClass('btn-primary').addClass('btn-secondary');
   $(this).removeClass('btn-secondary').addClass('btn-primary');
@@ -218,7 +214,7 @@ $('#showPoints').click(function (e) {
 $('#showAll').click(function (e) {
   e.preventDefault();
   showOption = 'all';
-  vectorPoints.getSource().refresh();
+  vectorPointsFhy.getSource().refresh();
 
   $('a.btn-show').removeClass('btn-primary').addClass('btn-secondary');
   $(this).removeClass('btn-secondary').addClass('btn-primary');
@@ -232,7 +228,7 @@ $('#countPoints').click(function (e) {
     yellow: 0,
     all: 0
   };
-  vectorPoints.getSource().forEachFeature(function (f) {
+  vectorPointsFhy.getSource().forEachFeature(function (f) {
     var num = parseInt(f.get('result'));
     if (num > 49) {
       counter.dark++;
