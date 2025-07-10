@@ -294,6 +294,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // 位置按鈕
   document.getElementById('location-btn').addEventListener('click', getUserLocation);
 
+  // 圖例面板摺疊功能
+  const legendHeader = document.getElementById('legend-header');
+  const legendContent = document.getElementById('legend-content');
+  const legendToggle = document.getElementById('legend-toggle');
+  
+  legendHeader.addEventListener('click', function() {
+    legendContent.classList.toggle('collapsed');
+    const icon = legendToggle.querySelector('i');
+    if (legendContent.classList.contains('collapsed')) {
+      icon.className = 'fas fa-chevron-down';
+    } else {
+      icon.className = 'fas fa-chevron-up';
+    }
+  });
+
   // 過濾按鈕
   document.getElementById('show-flooding').addEventListener('click', function() {
     showOption = 'flooding';

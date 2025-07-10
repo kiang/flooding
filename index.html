@@ -51,32 +51,6 @@
       z-index: 1;
     }
 
-    .info-panel {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 1.5rem;
-      box-shadow: var(--box-shadow);
-      z-index: 1000;
-      text-align: center;
-      max-width: 400px;
-    }
-
-    .info-panel h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0;
-      color: var(--dark-color);
-    }
-
-    .info-panel p {
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      margin: 0.5rem 0;
-    }
 
 
     .nav-btn {
@@ -134,17 +108,65 @@
       color: white;
     }
 
-    .filter-panel {
+    .legend-panel {
       position: fixed;
       bottom: 20px;
       left: 20px;
       background: white;
       border-radius: var(--border-radius);
-      padding: 1rem;
       box-shadow: var(--box-shadow);
       z-index: 1000;
+      max-width: 300px;
+      transition: var(--transition);
+    }
+
+    .legend-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .legend-title {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin: 0;
+    }
+
+    .legend-toggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 0.25rem;
+      border-radius: 50%;
+    }
+
+    .legend-toggle:hover {
+      background: var(--light-color);
+    }
+
+    .legend-content {
+      padding: 1rem;
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .legend-content.collapsed {
+      max-height: 0;
+      padding: 0 1rem;
+      opacity: 0;
+    }
+
+    .legend-filters {
       display: flex;
       gap: 0.5rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
     }
 
@@ -169,47 +191,98 @@
       transform: translateY(-1px);
     }
 
-    .stats-panel {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 1rem;
-      box-shadow: var(--box-shadow);
-      z-index: 1000;
-      min-width: 200px;
+    .legend-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .legend-item:hover {
+      background: var(--light-color);
+    }
+
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .legend-dot.critical { background: #0c0135; }
+    .legend-dot.high { background: #f30050; }
+    .legend-dot.medium { background: #f3f350; }
+    .legend-dot.low { background: #00f350; }
+
+    .legend-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .legend-label {
+      font-weight: 500;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+    }
+
+    .legend-description {
+      font-size: 0.8rem;
+      color: var(--secondary-color);
+    }
+
+    .legend-stats {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .stats-title {
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: var(--dark-color);
+      font-size: 0.95rem;
     }
 
-    .stat-item {
+    .legend-item-with-count {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0.25rem 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      justify-content: space-between;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: var(--transition);
     }
 
-    .stat-item:last-child {
-      border-bottom: none;
+    .legend-item-with-count:hover {
+      background: var(--light-color);
     }
 
-    .stat-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      margin-right: 0.5rem;
+    .legend-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .stat-dot.critical { background: #0c0135; }
-    .stat-dot.high { background: #f30050; }
-    .stat-dot.medium { background: #f3f350; }
-    .stat-dot.low { background: #00f350; }
+    .legend-count {
+      background: var(--light-color);
+      color: var(--dark-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      min-width: 30px;
+      text-align: center;
+    }
 
     .footer {
       position: fixed;
@@ -267,35 +340,16 @@
     .popup-value.low { color: #10b981; }
 
     @media (max-width: 768px) {
-      .info-panel {
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        transform: none;
-        padding: 1rem;
-      }
-      
-      .info-panel h1 {
-        font-size: 1.2rem;
-      }
-      
-      
       .control-panel {
         top: 10px;
         left: 10px;
       }
       
-      .filter-panel {
+      .legend-panel {
         bottom: 10px;
         left: 10px;
         right: 10px;
-        justify-content: center;
-      }
-      
-      .stats-panel {
-        top: 120px;
-        right: 10px;
-        left: 10px;
+        max-width: none;
       }
     }
   </style>
@@ -308,12 +362,6 @@
   <!-- Map Container -->
   <div id="map"></div>
 
-  <!-- Info Panel -->
-  <div class="info-panel">
-    <h1>臺灣淹水地圖</h1>
-    <p>即時監測全臺灣各地淹水情況</p>
-  </div>
-
   <!-- Control Panel -->
   <div class="control-panel">
     <button class="control-btn" id="location-btn" title="我的位置">
@@ -321,48 +369,69 @@
     </button>
   </div>
 
-  <!-- Filter Panel -->
-  <div class="filter-panel">
-    <button class="filter-btn active" id="show-flooding" data-filter="flooding">
-      <i class="fas fa-water"></i> 淹水點
-    </button>
-    <button class="filter-btn" id="show-all" data-filter="all">
-      <i class="fas fa-eye"></i> 全部
-    </button>
+  <!-- Legend Panel -->
+  <div class="legend-panel">
+    <div class="legend-header" id="legend-header">
+      <h3 class="legend-title">圖例與篩選</h3>
+      <button class="legend-toggle" id="legend-toggle">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <div class="legend-content" id="legend-content">
+      <div class="legend-filters">
+        <button class="filter-btn active" id="show-flooding" data-filter="flooding">
+          <i class="fas fa-water"></i> 淹水點
+        </button>
+        <button class="filter-btn" id="show-all" data-filter="all">
+          <i class="fas fa-eye"></i> 全部
+        </button>
+      </div>
+      <div class="legend-stats">
+        <div class="stats-title">圖例與統計</div>
+        <div class="legend-item-with-count">
+          <div class="legend-info">
+            <div class="legend-dot critical"></div>
+            <div class="legend-text">
+              <div class="legend-label">嚴重淹水</div>
+              <div class="legend-description">水位超過 49 公分</div>
+            </div>
+          </div>
+          <div class="legend-count" id="stat-critical">0</div>
+        </div>
+        <div class="legend-item-with-count">
+          <div class="legend-info">
+            <div class="legend-dot high"></div>
+            <div class="legend-text">
+              <div class="legend-label">高度淹水</div>
+              <div class="legend-description">水位 10-49 公分</div>
+            </div>
+          </div>
+          <div class="legend-count" id="stat-high">0</div>
+        </div>
+        <div class="legend-item-with-count">
+          <div class="legend-info">
+            <div class="legend-dot medium"></div>
+            <div class="legend-text">
+              <div class="legend-label">輕微淹水</div>
+              <div class="legend-description">水位 1-9 公分</div>
+            </div>
+          </div>
+          <div class="legend-count" id="stat-medium">0</div>
+        </div>
+        <div class="legend-item-with-count">
+          <div class="legend-info">
+            <div class="legend-dot low"></div>
+            <div class="legend-text">
+              <div class="legend-label">總計點位</div>
+              <div class="legend-description">所有監測站點</div>
+            </div>
+          </div>
+          <div class="legend-count" id="stat-total">0</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Stats Panel -->
-  <div class="stats-panel">
-    <div class="stats-title">淹水統計</div>
-    <div class="stat-item">
-      <div style="display: flex; align-items: center;">
-        <span class="stat-dot critical"></span>
-        嚴重 (>49cm)
-      </div>
-      <span id="stat-critical">0</span>
-    </div>
-    <div class="stat-item">
-      <div style="display: flex; align-items: center;">
-        <span class="stat-dot high"></span>
-        高 (>9cm)
-      </div>
-      <span id="stat-high">0</span>
-    </div>
-    <div class="stat-item">
-      <div style="display: flex; align-items: center;">
-        <span class="stat-dot medium"></span>
-        中 (>0cm)
-      </div>
-      <span id="stat-medium">0</span>
-    </div>
-    <div class="stat-item">
-      <div style="display: flex; align-items: center;">
-        <span class="stat-dot low"></span>
-        總計
-      </div>
-      <span id="stat-total">0</span>
-    </div>
-  </div>
 
 
   <!-- Footer -->
